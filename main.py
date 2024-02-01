@@ -8,7 +8,7 @@ def search_youtube_videos(query, max_results=50):
     return results["result"]
 
 def main():
-    st.title("YouTube Video Search App")
+    st.markdown("# :rainbow[YouTube Video Search App]")
 
     # User input for video search
     query = st.text_input("Enter your Favourite YouTube Video:", "Solo Levelling Anime")
