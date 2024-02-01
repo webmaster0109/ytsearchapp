@@ -1,23 +1,12 @@
 import streamlit as st
 from youtubesearchpython import VideosSearch
-from pytube import YouTube
 
-def search_youtube_videos(query, max_results=50):
+def search_youtube_videos(query, max_results=100):
     videos_search = VideosSearch(query, limit=max_results)
     results = videos_search.result()
     return results["result"]
 
-def download_video(video_url, download_path):
-    try:
-        st.info(f"Downloading video from {video_url}")
-        youtube = YouTube(video_url)
-        video = youtube.streams.get_highest_resolution()
-        video.download(download_path)
-        st.success("Video downloaded successfully!")
-    except Exception as e:
-        st.error(f"Error downloading video: {e}")
-
-def display_videos(videos, page_size=5):
+def display_videos(videos, page_size=20):
     total_results = len(videos)
     st.write(f"Total Results: {total_results}")
 
@@ -42,13 +31,8 @@ def display_videos(videos, page_size=5):
         
         # Add a clickable thumbnail that opens a pop-up
         with st.expander("Watch Video"):
-            video_embed_code = f'<iframe width="100%" height="420" src="https://www.youtube.com/embed/{video["id"]}" frameborder="0" allowfullscreen></iframe>'
+            video_embed_code = f'<iframe width="100%" height="450" src="https://www.youtube.com/embed/{video["id"]}" frameborder="0" allowfullscreen></iframe>'
             st.markdown(video_embed_code, unsafe_allow_html=True)
-
-            # Add a download button
-            download_button = st.button("Download Video", key=f"download_button_{video['id']}")
-            if download_button:
-                download_video(f"https://www.youtube.com/watch?v={video['id']}", "downloads")
 
         st.write("----")
 
@@ -64,18 +48,19 @@ def display_videos(videos, page_size=5):
         if next_page:
             st.experimental_rerun()
 
+# Streamlit app
 def main():
-    st.title("YouTube Video Search and Download App")
+    st.title("YouTube Video Search App")
 
     # User input for video search
-    query = st.text_input("Enter your YouTube video search query:", "Python tutorial")
+    query = st.text_input("Search your Favorite YouTube Videos:", "Solo Levelling Anime")
 
     # User input for results per page
-    results_per_page = st.sidebar.selectbox("Results per Page", [5, 10, 15, 20], index=2)
+    results_per_page = st.sidebar.selectbox("Results per Page", [5, 10, 15, 20, 50, 100], index=2)
 
     if st.button("Search"):
         # Get YouTube videos based on the search query
-        videos = search_youtube_videos(query, max_results=50)
+        videos = search_youtube_videos(query, max_results=100)
 
         if videos:
             # Display the search results with pagination
