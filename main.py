@@ -53,7 +53,7 @@ def main():
     st.title("YouTube Video Search App")
 
     # User input for video search
-    query = st.text_input("Enter your YouTube video search query:", "Python tutorial")
+    query = st.text_input("Search your fav YouTube video:", "Python tutorial")
 
     # User input for results per page
     results_per_page = st.sidebar.selectbox("Results per Page", [5, 10, 15, 20, 50, 100], index=2)
