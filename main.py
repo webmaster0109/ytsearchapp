@@ -7,16 +7,6 @@ def search_youtube_videos(query, max_results=50):
     results = videos_search.result()
     return results["result"]
 
-def download_video(video_url, download_path):
-    try:
-        st.info(f"Downloading video from {video_url}")
-        youtube = YouTube(video_url)
-        video = youtube.streams.get_highest_resolution()
-        video.download(download_path)
-        st.success("Video downloaded successfully!")
-    except Exception as e:
-        st.error(f"Error downloading video: {e}")
-
 def main():
     st.title("YouTube Video Search App")
 
@@ -62,10 +52,6 @@ def main():
             with st.expander("Watch Video"):
                 video_embed_code = f'<iframe width="100%" height="280" src="https://www.youtube.com/embed/{video["id"]}" frameborder="0" allowfullscreen></iframe>'
                 st.markdown(video_embed_code, unsafe_allow_html=True)
-
-                # Add a download
-                if st.button("Download Video", key=f"download_button_{video['id']}"):
-                    download_video(f"https://www.youtube.com/watch?v={video['id']}", "downloads")
 
             st.write("----")
 
