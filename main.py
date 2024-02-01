@@ -1,17 +1,12 @@
 import streamlit as st
-from youtubesearchpython import VideosSearch, Playlist
+from youtubesearchpython import VideosSearch
 
-def search_youtube_videos(query, max_results=20):
+def search_youtube_videos(query, max_results=100):
     videos_search = VideosSearch(query, limit=max_results)
     results = videos_search.result()
     return results["result"]
 
-def search_youtube_playlists(query, max_results=5):
-    playlists_search = Playlist(query, limit=max_results)
-    results = playlists_search.result()
-    return results["playlists"]
-
-def display_videos(videos, page_size=5):
+def display_videos(videos, page_size=20):
     total_results = len(videos)
     st.write(f"Total Results: {total_results}")
 
@@ -53,54 +48,25 @@ def display_videos(videos, page_size=5):
         if next_page:
             st.experimental_rerun()
 
-def display_playlists(playlists):
-    total_playlists = len(playlists)
-    st.write(f"Total Playlists: {total_playlists}")
-
-    for playlist in playlists:
-        st.markdown(f"### Playlist: {playlist['title']}")
-        st.write(f"**Channel:** {playlist['channel']['name']}")
-        st.write(f"**Videos Count:** {playlist['videos']}")
-        thumbnail_url = playlist['thumbnails'][0]['url']
-        st.image(thumbnail_url, use_column_width=True)
-
-        # Add a button to view playlist videos
-        if st.button(f"View Videos in {playlist['title']}", key=f"button_{playlist['id']}"):
-            playlist_videos = search_youtube_videos(f"playlist:{playlist['id']}")
-            display_videos(playlist_videos)
-
-        st.write("----")
-
 # Streamlit app
 def main():
-    st.title("YouTube Video and Playlist Search App")
+    st.title("YouTube Video Search App")
 
-    # User input for search type (Videos or Playlists)
-    search_type = st.radio("Select Search Type", ["Videos", "Playlists"])
-
-    # User input for search query
-    query = st.text_input(f"Enter your YouTube {search_type.lower()} search query:", "Python tutorial")
+    # User input for video search
+    query = st.text_input("Enter your YouTube video search query:", "Python tutorial")
 
     # User input for results per page
-    results_per_page = st.sidebar.selectbox("Results per Page", [5, 10, 15, 20], index=2)
+    results_per_page = st.sidebar.selectbox("Results per Page", [5, 10, 15, 20, 50, 100], index=2)
 
     if st.button("Search"):
-        if search_type == "Videos":
-            # Get YouTube videos based on the search query
-            videos = search_youtube_videos(query, max_results=20)
-            if videos:
-                # Display the search results with pagination
-                display_videos(videos, page_size=results_per_page)
-            else:
-                st.warning("No videos found. Try a different search query.")
-        elif search_type == "Playlists":
-            # Get YouTube playlists based on the search query
-            playlists = search_youtube_playlists(query, max_results=5)
-            if playlists:
-                # Display the playlist results
-                display_playlists(playlists)
-            else:
-                st.warning("No playlists found. Try a different search query.")
+        # Get YouTube videos based on the search query
+        videos = search_youtube_videos(query, max_results=100)
+
+        if videos:
+            # Display the search results with pagination
+            display_videos(videos, page_size=results_per_page)
+        else:
+            st.warning("No videos found. Try a different search query.")
 
 if __name__ == "__main__":
     main()
