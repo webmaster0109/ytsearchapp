@@ -86,7 +86,7 @@ def main():
             st.warning("Your watchlist is empty.")
         else:            
             for video in watchlist:
-                st.write(f"Title: {video['title']}")
+                st.markdown(f"### {video['title']}")
                 link = str(video['link']).split('=')[1]
                 with st.expander("Watch Video"):
                     video_embed_code = f'<iframe width="100%" height="380" src="https://www.youtube.com/embed/{link}" frameborder="0" allowfullscreen></iframe>'
