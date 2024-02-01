@@ -51,7 +51,7 @@ def main():
             st.write(f"**Views:** {views}")
             
             # Display video date using publishedText
-            published_text = video.get('publishedText', 'N/A') if 'publishedText' in video else 'N/A'
+            published_text = video.get('publishedTime', 'N/A') if 'publishedTime' in video else 'N/A'
             st.write(f"**Published Date:** {published_text}")
             
             st.write(f"**Duration:** {video['duration']}")
