@@ -28,6 +28,9 @@ def display_videos(videos, page_size=20):
         st.write(f"**Duration:** {video['duration']}")
         thumbnail_url = video['thumbnails'][0]['url']
         st.image(thumbnail_url, use_column_width=True)
+
+        published_at = video.get('publishedTime', 'N/A') if 'publishedTime' in video else 'N/A'
+        st.write(f"**Published Date:** {published_at}")
         
         # Add a clickable thumbnail that opens a pop-up
         with st.expander("Watch Video"):
