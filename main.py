@@ -31,7 +31,7 @@ def display_videos(videos, page_size=5):
         
         # Add a clickable thumbnail that opens a pop-up
         with st.expander("Watch Video"):
-            video_embed_code = f'<iframe width="100%" height="350" src="https://www.youtube.com/embed/{video["id"]}" frameborder="0" allowfullscreen></iframe>'
+            video_embed_code = f'<iframe width="100%" height="280" src="https://www.youtube.com/embed/{video["id"]}" frameborder="0" allowfullscreen></iframe>'
             st.markdown(video_embed_code, unsafe_allow_html=True)
 
         st.write("----")
