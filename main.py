@@ -1,7 +1,7 @@
 import streamlit as st
 from youtubesearchpython import VideosSearch
 
-def search_youtube_videos(query, max_results=20):
+def search_youtube_videos(query, max_results=100):
     videos_search = VideosSearch(query, limit=max_results)
     results = videos_search.result()
     return results["result"]
@@ -60,7 +60,7 @@ def main():
 
     if st.button("Search"):
         # Get YouTube videos based on the search query
-        videos = search_youtube_videos(query, max_results=20)
+        videos = search_youtube_videos(query, max_results=100)
 
         if videos:
             # Display the search results with pagination
