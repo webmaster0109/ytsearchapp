@@ -13,6 +13,7 @@ def main():
         st.session_state.watchlist = []
     # Sidebar menu
     sidebar_menu = st.sidebar.radio("Menu", ["Search", "Downloads", "Watchlist"])
+    
     if sidebar_menu == "Search":
         # User input for video search
         query = st.text_input("Enter your Favorite YouTube Video:", "Solo Levelling Anime")
