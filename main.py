@@ -121,9 +121,9 @@ def main():
 
             for i, video in enumerate(playlist):
 
-                if i % 3 == 0:
+                if i % 2 == 0:
                     col = col1
-                elif i % 3 == 1:
+                elif i % 2 == 1:
                     col = col2
 
                 with col:
