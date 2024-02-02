@@ -117,7 +117,7 @@ def main():
                 unsafe_allow_html=True
             )
 
-            col1, col2, col3 = st.columns(3)
+            col1, col2 = st.columns(2)
 
             for i, video in enumerate(playlist):
 
@@ -125,12 +125,10 @@ def main():
                     col = col1
                 elif i % 3 == 1:
                     col = col2
-                else:
-                    col = col3
 
                 with col:
                     video_title = str(video['title'])
-                    st.markdown(f"###### {video_title.upper()}")
+                    st.markdown(f"##### {video_title.upper()}")
 
                     thumbnail_url = video['thumbnails'][2]['url']
                     st.image(thumbnail_url, use_column_width=True)
