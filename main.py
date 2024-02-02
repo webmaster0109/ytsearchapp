@@ -43,7 +43,7 @@ def main():
                 st.markdown(f"## {video_title.upper()}")
                 
                 # video thumbnail
-                thumbnail_url = video['thumbnails'][1]['url']
+                thumbnail_url = video['richThumbnail'][0]['url']
                 st.image(thumbnail_url, use_column_width=True)
 
                 with st.expander('Video Details:'):
