@@ -27,9 +27,9 @@ def main():
 
         if videos:
             start_time = time.time()
-            time.sleep()
             # Display the search results
             total_results = len(videos)
+            time.sleep(1)
             end_time = time.time()
             eclapsed_time_second = end_time - start_time
             st.markdown(
