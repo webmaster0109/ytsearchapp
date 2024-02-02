@@ -100,7 +100,7 @@ def main():
     elif sidebar_menu == "Playlist Search":
         st.title(f":rainbow[YT Playlist Search App]")
         # search playlist
-        query = st.text_input("Search youtube playlist here: (*Type Channel Name Only)", "Krish Naik Hindi")
+        query = st.text_input("Search youtube playlist here: (*Type Anything)", "Krish Naik Hindi")
         # start time
         start_time = time.time()
         # store playlist function
