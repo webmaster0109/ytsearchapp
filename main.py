@@ -5,11 +5,10 @@ import time
 def search_youtube_videos(query, max_limit=100):
     videos_search = VideosSearch(query, limit=max_limit)
     results = videos_search.result()
-    print(results['result'])
     return results["result"]
 
 def search_youtube_playlist(playlist):
-    playlistsSearch = PlaylistsSearch(playlist, limit=10)
+    playlistsSearch = PlaylistsSearch(playlist)
     playlists = playlistsSearch.result()
     return playlists["result"]
 
@@ -118,19 +117,30 @@ def main():
                 unsafe_allow_html=True
             )
 
-            for video in playlist:
-                video_title = str(video['title'])
-                st.markdown(f"## {video_title.upper()}")
+            col1, col2, col3 = st.columns(3)
 
-                thumbnail_url = video['thumbnails'][2]['url']
-                st.image(thumbnail_url, use_column_width=True)
+            for i, video in enumerate(playlist):
 
-                with st.expander('Playlist Details:', expanded=True):
-                    st.write(f"**Channel:** {video['channel']['name']}")
-                    # Check if 'views' key is present in the video data
-                    st.write(f"**Total Videos:** {video['videoCount']}")
+                if i % 3 == 0:
+                    col = col1
+                elif i % 3 == 1:
+                    col = col2
+                else:
+                    col = col3
 
-                    st.write(f"**Watch Playlist Videos:** {video['link']}")
+                with col:
+                    video_title = str(video['title'])
+                    st.markdown(f"###### {video_title.upper()}")
+
+                    thumbnail_url = video['thumbnails'][2]['url']
+                    st.image(thumbnail_url, use_column_width=True)
+
+                    with st.expander('Playlist Details:', expanded=True):
+                        st.write(f"**Channel:** {video['channel']['name']}")
+                        # Check if 'views' key is present in the video data
+                        st.write(f"**Total Videos:** {video['videoCount']}")
+
+                        st.write(f"**Watch Playlist Videos:** {video['link']}")
 
                 print(video)
 
