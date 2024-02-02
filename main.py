@@ -8,7 +8,7 @@ def search_youtube_videos(query, max_results=100):
     return results["result"]
 
 def main():
-    st.markdown(f"# :rainbow[YouTube Video Search App]")
+    st.title(f":rainbow[YouTube Video Search App]")
 
     if 'watchlist' not in st.session_state:
         st.session_state.watchlist = []
