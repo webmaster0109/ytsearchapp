@@ -139,17 +139,18 @@ def main():
                         end_time = time.time()
                         elapsed_time_seconds = end_time - start_time
 
-                        for pv in playlist_videos['videos']:
+                        if playlist_videos:
                             st.markdown(
-                                f"<p style='font-size:16px;color:grey;'>About {total_playlists} results (in {elapsed_time_seconds:.2f} seconds)</p>", 
-                                unsafe_allow_html=True
+                                f"<p style='font-size:16px;color:grey;'>About {len(playlist_videos)} results (in {elapsed_time_seconds:.2f} seconds)</p>", 
+                                    unsafe_allow_html=True
                             )
-                            st.markdown(f"##### {pv['title']}")
-                            st.write(f"**Duration:** {pv['duration']}")
+                            for pv in playlist_videos['videos']:
+                                st.markdown(f"##### {pv['title']}")
+                                st.write(f"**Duration:** {pv['duration']}")
 
-                            video_embed_code = f'<iframe width="100%" height="380" src="https://www.youtube.com/embed/{pv["id"]}" frameborder="0" allowfullscreen></iframe>'
-                            st.markdown(video_embed_code, unsafe_allow_html=True)
-                            st.write("----")
+                                video_embed_code = f'<iframe width="100%" height="380" src="https://www.youtube.com/embed/{pv["id"]}" frameborder="0" allowfullscreen></iframe>'
+                                st.markdown(video_embed_code, unsafe_allow_html=True)
+                                st.write("----")
 
                 st.write("----")
 
