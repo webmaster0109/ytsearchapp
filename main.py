@@ -12,6 +12,10 @@ def search_youtube_playlist(playlist):
     playlists = playlistsSearch.result()
     return playlists["result"]
 
+def get_playlist_videos(query):
+    playlistVideos = Playlist.getVideos(query)
+    return playlistVideos
+
 def main():
     if 'watchlist' not in st.session_state:
         st.session_state.watchlist = []
@@ -28,7 +32,7 @@ def main():
 
         start_time = time.time()
         # Get YouTube videos based on the search query
-        videos = search_youtube_videos(query, max_limit=200)
+        videos = search_youtube_videos(query, max_limit=100)
         end_time = time.time()
 
         if videos:
@@ -116,30 +120,31 @@ def main():
                 unsafe_allow_html=True
             )
 
-            col1, col2 = st.columns(2)
+            for video in playlist:
+                video_title = str(video['title'])
+                st.markdown(f"### {video_title.upper()}")
 
-            for i, video in enumerate(playlist):
+                thumbnail_url = video['thumbnails'][2]['url']
+                st.image(thumbnail_url, use_column_width=True)
 
-                if i % 2 == 0:
-                    col = col1
-                elif i % 2 == 1:
-                    col = col2
+                with st.expander('Playlist Details:', expanded=True):
+                    st.write(f"**Channel:** {video['channel']['name']}")
+                    # Check if 'views' key is present in the video data
+                    st.write(f"**Total Videos:** {video['videoCount']}")
 
-                with col:
-                    video_title = str(video['title'])
-                    st.markdown(f"##### {video_title.upper()}")
+                with st.expander(f'{video["title"]}'):
+                    if st.button("Show Videos: ", key=f"playlist_videos_{video['title']}"):
+                        playlist_videos = get_playlist_videos(video['link'])
 
-                    thumbnail_url = video['thumbnails'][2]['url']
-                    st.image(thumbnail_url, use_column_width=True)
+                        for pv in playlist_videos['videos']:
+                            st.markdown(f"##### {pv['title']}")
+                            st.write(f"**Duration:** {pv['duration']}")
 
-                    with st.expander('Playlist Details:', expanded=True):
-                        st.write(f"**Channel:** {video['channel']['name']}")
-                        # Check if 'views' key is present in the video data
-                        st.write(f"**Total Videos:** {video['videoCount']}")
+                            video_embed_code = f'<iframe width="100%" height="380" src="https://www.youtube.com/embed/{pv["id"]}" frameborder="0" allowfullscreen></iframe>'
+                            st.markdown(video_embed_code, unsafe_allow_html=True)
+                            st.write("----")
 
-                        st.write(f"**Watch Playlist Videos:** {video['link']}")
-
-                    st.write("----")
+                st.write("----")
 
     elif sidebar_menu == "Watchlist":
         st.title(f":rainbow[YouTube Video Watchlist]")
