@@ -46,7 +46,7 @@ def main():
                 thumbnail_url = video['thumbnails'][0]['url']
                 st.image(thumbnail_url, use_column_width=True)
 
-                with st.expander('Video Details:', expanded=True):
+                with st.expander('Video Details:'):
                     st.write(f"**Channel:** {video['channel']['name']}")
                     # Check if 'views' key is present in the video data
                     views = video.get('views', 'N/A') if 'views' in video else 'N/A'
