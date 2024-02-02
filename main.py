@@ -134,9 +134,16 @@ def main():
 
                 with st.expander(f'{video["title"]}'):
                     if st.button("Show Videos: ", key=f"playlist_videos_{video['title']}"):
+                        start_time = time.time()
                         playlist_videos = get_playlist_videos(video['link'])
+                        end_time = time.time()
+                        elapsed_time_seconds = end_time - start_time
 
                         for pv in playlist_videos['videos']:
+                            st.markdown(
+                                f"<p style='font-size:16px;color:grey;'>About {total_playlists} results (in {elapsed_time_seconds:.2f} seconds)</p>", 
+                                unsafe_allow_html=True
+                            )
                             st.markdown(f"##### {pv['title']}")
                             st.write(f"**Duration:** {pv['duration']}")
 
