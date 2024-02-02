@@ -40,7 +40,7 @@ def main():
             for video in current_page_videos:
                 video_title = str(video['title'])
                 print(video_title.upper())
-                st.markdown(f"#### {video_title.upper()}")
+                st.markdown(f"## {video_title.upper()}")
                 
                 # video thumbnail
                 thumbnail_url = video['thumbnails'][0]['url']
