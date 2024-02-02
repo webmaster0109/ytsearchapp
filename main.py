@@ -98,9 +98,9 @@ def main():
             st.warning("No videos found. Try a different search query.")
     
     elif sidebar_menu == "Playlist Search":
-        st.title(f":rainbow[YouTube Playlist Search App]")
+        st.title(f":rainbow[YT Playlist Search App]")
         # search playlist
-        query = st.text_input("Search your youtube playlist here: (*Type Channel Name Only)", "Krish Naik Hindi")
+        query = st.text_input("Search youtube playlist here: (*Type Channel Name Only)", "Krish Naik Hindi")
         # start time
         start_time = time.time()
         # store playlist function
