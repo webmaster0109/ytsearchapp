@@ -38,7 +38,8 @@ def main():
             current_page_videos = videos[start_idx:end_idx]
 
             for video in current_page_videos:
-                st.markdown(f"### {video['title']}")
+                video_title = str(video['title']).capitalize()
+                st.markdown(f"### {video_title}")
                 st.write(f"**Channel:** {video['channel']['name']}")
                 
                 # Check if 'views' key is present in the video data
