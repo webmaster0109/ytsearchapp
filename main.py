@@ -43,14 +43,14 @@ def main():
                 st.markdown(f"## {video_title.upper()}")
                 
                 # video thumbnail
-                thumbnail_url = video['thumbnails'][0]['url']
+                thumbnail_url = video['thumbnails'][1]['url']
                 st.image(thumbnail_url, use_column_width=True)
 
                 with st.expander('Video Details:'):
                     st.write(f"**Channel:** {video['channel']['name']}")
                     # Check if 'views' key is present in the video data
-                    views = video.get('views', 'N/A') if 'views' in video else 'N/A'
-                    st.write(f"**Views:** {views}")
+                    views = video['viewCount']
+                    st.write(f"**Views:** {views['short']}")
                     
                     # Display video date using publishedText
                     published_text = video.get('publishedTime', 'N/A') if 'publishedTime' in video else 'N/A'
