@@ -27,7 +27,7 @@ def main():
 
         if videos:
             start_time = time.time()
-            # time.sleep(5)
+            time.sleep()
             # Display the search results
             total_results = len(videos)
             end_time = time.time()
