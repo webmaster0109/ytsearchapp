@@ -42,6 +42,10 @@ def main():
                 print(video_title.upper())
                 st.markdown(f"#### {video_title.upper()}")
                 
+                # video thumbnail
+                thumbnail_url = video['thumbnails'][0]['url']
+                st.image(thumbnail_url, use_column_width=True)
+
                 with st.expander('Video Details:', expanded=True):
                     st.write(f"**Channel:** {video['channel']['name']}")
                     # Check if 'views' key is present in the video data
@@ -53,10 +57,6 @@ def main():
                     st.write(f"**Published Date:** {published_text}")
                     
                     st.write(f"**Duration:** {video['duration']}")
-                
-                # video thumbnail
-                thumbnail_url = video['thumbnails'][0]['url']
-                st.image(thumbnail_url, use_column_width=True)
 
                 # Add a clickable thumbnail that opens a pop-up
                 with st.expander("Watch Video"):
