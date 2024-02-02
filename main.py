@@ -27,13 +27,13 @@ def main():
 
         if videos:
             start_time = time.time()
-            end_time = time.time()
             # Display the search results
             total_results = len(videos)
             # time.sleep(1)
+            end_time = time.time()
             eclapsed_time_second = end_time - start_time
             st.markdown(
-                f"<p style='text-align:center;font-size:15px;border:1px solid #000;padding: 10px 20px;'><b>About</b> {total_results} results ({eclapsed_time_second:.2f} seconds)</p>", 
+                f"<p style='text-align:center;font-size:15px;border:1px solid #000;padding: 10px 20px;'>About {total_results} results ({eclapsed_time_second:.2f} seconds)</p>", 
                 unsafe_allow_html=True
             )
 
