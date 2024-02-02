@@ -22,15 +22,16 @@ def main():
         # User input for results per page
         results_per_page = st.sidebar.selectbox("Results per Page", [5, 10, 15, 20, 50], index=2)
 
+        start_time = time.time()
         # Get YouTube videos based on the search query
         videos = search_youtube_videos(query, max_results=100)
+        end_time = time.time()
 
         if videos:
-            start_time = time.time()
+            
             # Display the search results
             total_results = len(videos)
             # time.sleep(1)
-            end_time = time.time()
             eclapsed_time_second = end_time - start_time
             st.markdown(
                 f"<p style='text-align:center;font-size:15px;border:1px solid #000;padding: 10px 20px;'>About {total_results} results ({eclapsed_time_second:.2f} seconds)</p>", 
