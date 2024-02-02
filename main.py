@@ -27,7 +27,7 @@ def main():
         if videos:
             # Display the search results with pagination
             total_results = len(videos)
-            st.markdown(f"<p style='text-align:center;font-size:18px;'><b>Total Results:</b> {total_results}</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='text-align:center;font-size:14px;'><b>Total Results:</b> {total_results}</p>", unsafe_allow_html=True)
 
             # Pagination controls
             current_page = st.sidebar.number_input("Page", min_value=1, value=1)
