@@ -9,14 +9,6 @@ def search_youtube_videos(query, max_results=100):
 
 def main():
 
-    html_metadata = f"""
-        <head>
-            <title>YouTube Video Search App</title>
-            <meta name="description" content="YouTube Video Search App">
-        </head>
-    """
-    st.markdown(html_metadata, unsafe_allow_html=True)
-
     st.title(f":rainbow[YouTube Video Search App]")
 
     if 'watchlist' not in st.session_state:
