@@ -13,14 +13,13 @@ def search_youtube_playlist(playlist):
     return playlists["result"]
 
 def main():
-    st.title(f":rainbow[YouTube Video Search App]")
-
     if 'watchlist' not in st.session_state:
         st.session_state.watchlist = []
     # Sidebar menu
     sidebar_menu = st.sidebar.radio("Menu", ["Video Search", "Playlist Search", "Downloads", "Watchlist"])
     
     if sidebar_menu == "Video Search":
+        st.title(f":rainbow[YouTube Video Search App]")
         # User input for video search
         query = st.text_input("Enter your Favorite YouTube Video:", "Solo Levelling Anime")
 
@@ -99,7 +98,7 @@ def main():
             st.warning("No videos found. Try a different search query.")
     
     elif sidebar_menu == "Playlist Search":
-        st.markdown(f"<p style='font-size:20px;font-weight:500;color:grey;'>YouTube Playlist Search</p>", unsafe_allow_html=True)
+        st.title(f":rainbow[YouTube Playlist Search App]")
         # search playlist
         query = st.text_input("Search your youtube playlist here: (*Type Channel Name Only)", "Krish Naik Hindi")
         # start time
@@ -143,7 +142,7 @@ def main():
                     st.write("----")
 
     elif sidebar_menu == "Watchlist":
-        st.markdown(f"<p style='font-size:20px;font-weight:500;color:grey;'>YouTube Video Watchlist</p>", unsafe_allow_html=True)
+        st.title(f":rainbow[YouTube Video Watchlist]")
         watchlist = st.session_state.watchlist
         if not watchlist:
             st.warning("Your watchlist is empty.")
