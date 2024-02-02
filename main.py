@@ -1,22 +1,27 @@
 import streamlit as st
-from youtubesearchpython import VideosSearch
+from youtubesearchpython import VideosSearch, PlaylistsSearch, Playlist
 import time
 
-def search_youtube_videos(query, max_results=100):
-    videos_search = VideosSearch(query, limit=max_results)
+def search_youtube_videos(query, max_limit=100):
+    videos_search = VideosSearch(query, limit=max_limit)
     results = videos_search.result()
+    print(results['result'])
     return results["result"]
 
-def main():
+def search_youtube_playlist(playlist):
+    playlistsSearch = PlaylistsSearch(playlist, limit=10)
+    playlists = playlistsSearch.result()
+    return playlists["result"]
 
+def main():
     st.title(f":rainbow[YouTube Video Search App]")
 
     if 'watchlist' not in st.session_state:
         st.session_state.watchlist = []
     # Sidebar menu
-    sidebar_menu = st.sidebar.radio("Menu", ["Search", "Downloads", "Watchlist"])
+    sidebar_menu = st.sidebar.radio("Menu", ["Video Search", "Playlist Search", "Downloads", "Watchlist"])
     
-    if sidebar_menu == "Search":
+    if sidebar_menu == "Video Search":
         # User input for video search
         query = st.text_input("Enter your Favorite YouTube Video:", "Solo Levelling Anime")
 
@@ -25,7 +30,7 @@ def main():
 
         start_time = time.time()
         # Get YouTube videos based on the search query
-        videos = search_youtube_videos(query, max_results=100)
+        videos = search_youtube_videos(query, max_limit=200)
         end_time = time.time()
 
         if videos:
@@ -49,14 +54,13 @@ def main():
 
             for video in current_page_videos:
                 video_title = str(video['title'])
-                print(video_title.upper())
                 st.markdown(f"## {video_title.upper()}")
                 
                 # video thumbnail
                 thumbnail_url = video['thumbnails'][0]['url']
                 st.image(thumbnail_url, use_column_width=True)
 
-                with st.expander('Video Details:'):
+                with st.expander('Video Details:', expanded=True):
                     st.write(f"**Channel:** {video['channel']['name']}")
                     # Check if 'views' key is present in the video data
                     views = video['viewCount']
@@ -95,8 +99,43 @@ def main():
         else:
             st.warning("No videos found. Try a different search query.")
     
+    elif sidebar_menu == "Playlist Search":
+        st.markdown(f"<p style='font-size:20px;font-weight:500;color:grey;'>YouTube Playlist Search</p>", unsafe_allow_html=True)
+        # search playlist
+        query = st.text_input("Search your youtube playlist here: (*Type Channel Name Only)", "Krish Naik Hindi")
+        # start time
+        start_time = time.time()
+        # store playlist function
+        playlist = search_youtube_playlist(query)
+        # end time
+        end_time = time.time()
+
+        if playlist:
+            total_playlists = len(playlist)
+            elapsed_time_seconds = end_time - start_time
+            st.markdown(
+                f"<p style='font-size:16px;color:grey;'>About {total_playlists} results (in {elapsed_time_seconds:.2f} seconds)</p>", 
+                unsafe_allow_html=True
+            )
+
+            for video in playlist:
+                video_title = str(video['title'])
+                st.markdown(f"## {video_title.upper()}")
+
+                thumbnail_url = video['thumbnails'][2]['url']
+                st.image(thumbnail_url, use_column_width=True)
+
+                with st.expander('Playlist Details:', expanded=True):
+                    st.write(f"**Channel:** {video['channel']['name']}")
+                    # Check if 'views' key is present in the video data
+                    st.write(f"**Total Videos:** {video['videoCount']}")
+
+                    st.write(f"**Watch Playlist Videos:** {video['link']}")
+
+                print(video)
+
     elif sidebar_menu == "Watchlist":
-        st.write("Watchlist menu selected.")
+        st.markdown(f"<p style='font-size:20px;font-weight:500;color:grey;'>YouTube Video Watchlist</p>", unsafe_allow_html=True)
         watchlist = st.session_state.watchlist
         if not watchlist:
             st.warning("Your watchlist is empty.")
