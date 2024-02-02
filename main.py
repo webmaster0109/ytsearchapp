@@ -140,7 +140,7 @@ def main():
 
                         st.write(f"**Watch Playlist Videos:** {video['link']}")
 
-                st.write("----")
+                    st.write("----")
 
     elif sidebar_menu == "Watchlist":
         st.markdown(f"<p style='font-size:20px;font-weight:500;color:grey;'>YouTube Video Watchlist</p>", unsafe_allow_html=True)
