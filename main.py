@@ -1,7 +1,7 @@
 import streamlit as st
 from youtubesearchpython import VideosSearch
 
-def search_youtube_videos(query, max_results=50):
+def search_youtube_videos(query, max_results=100):
     videos_search = VideosSearch(query, limit=max_results)
     results = videos_search.result()
     return results["result"]
@@ -22,7 +22,7 @@ def main():
         results_per_page = st.sidebar.selectbox("Results per Page", [5, 10, 15, 20, 50], index=2)
 
         # Get YouTube videos based on the search query
-        videos = search_youtube_videos(query, max_results=50)
+        videos = search_youtube_videos(query, max_results=100)
 
         if videos:
             # Display the search results with pagination
