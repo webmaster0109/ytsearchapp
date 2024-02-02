@@ -34,7 +34,7 @@ def main():
             # time.sleep(1)
             eclapsed_time_second = end_time - start_time
             st.markdown(
-                f"<p style='font-size:16px;color:grey;'>About {total_results} results (in {eclapsed_time_second:.2f} seconds)</p>", 
+                f"<p style='font-size:16px;color:grey;'>About {total_results} results (in {eclapsed_time_second:.3f} seconds)</p>", 
                 unsafe_allow_html=True
             )
 
